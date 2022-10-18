@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getApi, getVerion } from ".";
 import * as constants from './constants';
-import { testFunc } from "./constants";
+import { npmVersion, testFunc } from "./constants";
 
 describe('version / constant', () => {
   it('should return the true value', () => {
@@ -39,5 +39,16 @@ describe('window', () => {
     const windowSpy = jest.spyOn(global, 'window', 'get')
     windowSpy.mockImplementationOnce(() => '123' as any)
     expect(window).toBe('123')
+  })
+})
+
+describe('npm package version', () => {
+  it('should have npm package version', () => {
+    expect(npmVersion).toBe('1.0.0')
+  })
+
+  it('should allow to mock the npm package version', () => {
+    Object.defineProperty(constants, 'npmVersion', {value: 'mockVersion'})
+    expect(npmVersion).toBe('mockVersion')
   })
 })
